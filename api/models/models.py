@@ -9,7 +9,7 @@ class Sandwich(Base):
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     sandwich_name = Column(String(100), unique=True, nullable=True)
-    price = Column(DECIMAL(4, 2), nullable=False, server_default='0.0')
+    price = Column(DECIMAL(4, 2), nullable=False, server_default='0')
 
     recipes = relationship("Recipe", back_populates="sandwich")
     order_details = relationship("OrderDetail", back_populates="sandwich")
@@ -20,7 +20,7 @@ class Resource(Base):
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     item = Column(String(100), unique=True, nullable=False)
-    amount = Column(Integer, index=True, nullable=False, server_default='0.0')
+    amount = Column(Integer, index=True, nullable=False, server_default='0')
 
     recipes = relationship("Recipe", back_populates="resource")
 
@@ -31,7 +31,7 @@ class Recipe(Base):
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     sandwich_id = Column(Integer, ForeignKey("sandwiches.id"))
     resource_id = Column(Integer, ForeignKey("resources.id"))
-    amount = Column(Integer, index=True, nullable=False, server_default='0.0')
+    amount = Column(Integer, index=True, nullable=False, server_default='0')
 
     sandwich = relationship("Sandwich", back_populates="recipes")
     resource = relationship("Resource", back_populates="recipes")
