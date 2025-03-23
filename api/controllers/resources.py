@@ -4,8 +4,8 @@ from ..models import models, schemas
 
 def create(db: Session, resource):
     db_resource = models.Resource (
-        name=resource.name,
-        quantity=resource.quantity,
+        item=resource.item,
+        amount=resource.amount
     )
     db.add(db_resource)
     db.commit()
