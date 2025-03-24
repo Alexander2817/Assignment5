@@ -3,11 +3,7 @@ from fastapi import HTTPException, status, Response, Depends
 from ..models import models, schemas
 
 def create(db: Session, order_detail):
-    db_order_detail = models.OrderDetail(
-        order_id = order_detail.order_id,
-        sandwich_id=order_detail.sandwich_id,
-        amount=order_detail.amount,
-    )
+    db_order_detail = models.OrderDetail(**order_detail.dict())
     db.add(db_order_detail)
     db.commit()
     db.refresh(db_order_detail)

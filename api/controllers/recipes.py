@@ -3,11 +3,7 @@ from fastapi import Response, status
 from ..models import models, schemas
 
 def create(db:Session, recipe):
-    db_recipe = models.Recipe(
-        sandwich_id=recipe.sandwich_id,
-        resource_id=recipe.resource_id,
-        amount=recipe.amount
-    )
+    db_recipe = models.Recipe(**recipe.dict())
     db.add(db_recipe)
     db.commit()
     db.refresh(db_recipe)

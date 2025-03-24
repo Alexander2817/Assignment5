@@ -2,15 +2,12 @@ from sqlalchemy.orm import Session
 from fastapi import HTTPException, status, Response, Depends
 from ..models import models, schemas
 
-def create(db: Session, resource):
-    db_resource = models.Resource (
-        item=resource.item,
-        amount=resource.amount
-    )
+def create(db: Session, resource : schemas.ResourceCreate):
+    db_resource = models.Resource(**resource.dict())
     db.add(db_resource)
     db.commit()
     db.refresh(db_resource)
-    return db_resource
+    return schemas.Resource.from_orm(db_resource)
 
 def read_all(db: Session):
     return db.query(models.Resource).all()
